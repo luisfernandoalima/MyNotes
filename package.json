@@ -1,0 +1,16 @@
+{
+  "name": "mynotes",
+  "version": "3.0.0",
+  "description": "Sistema de anotações e lembretes",
+  "main": "app.mjs",
+  "scripts": {
+    "start": "nodemon app.mjs"
+  },
+  "author": "Luis Fernando Alves de Lima",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.1",
+    "express-handlebars": "^8.0.1",
+    "mongoose": "^8.8.1"
+  }
+}
