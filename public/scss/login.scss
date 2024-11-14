@@ -23,12 +23,16 @@ body {
   background-color: $lightGreen1;
 }
 
+.icon-mobile-icon {
+  display: none;
+}
+
 form {
   width: 70%;
   padding: 20px;
   border-radius: 30px;
 
-  h1 {
+  h2 {
     text-align: center;
     color: $darkGreen;
   }
@@ -96,5 +100,24 @@ form {
     &:hover {
       background-color: darken($firstGreen, 10%);
     }
+  }
+}
+
+@media (max-width: 768px) {
+  .icon-area {
+    display: none;
+  }
+
+  .icon-mobile-icon {
+    @include flex(center, center, row);
+    margin-bottom: 25px;
+    h1{
+        font-size: 40px;
+        color: $darkGreen;
+    }
+  }
+
+  form {
+    width: 95%;
   }
 }

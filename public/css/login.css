@@ -24,12 +24,16 @@ body {
   background-color: #ABD6A8;
 }
 
+.icon-mobile-icon {
+  display: none;
+}
+
 form {
   width: 70%;
   padding: 20px;
   border-radius: 30px;
 }
-form h1 {
+form h2 {
   text-align: center;
   color: #01261c;
 }
@@ -95,6 +99,26 @@ form button {
 }
 form button:hover {
   background-color: #01271c;
+}
+
+@media (max-width: 768px) {
+  .icon-area {
+    display: none;
+  }
+  .icon-mobile-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    margin-bottom: 25px;
+  }
+  .icon-mobile-icon h1 {
+    font-size: 40px;
+    color: #01261c;
+  }
+  form {
+    width: 95%;
+  }
 }
 
 /*# sourceMappingURL=login.css.map */
