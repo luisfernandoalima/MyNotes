@@ -1,0 +1,17 @@
+// Colors
+$lightGreen1: #ABD6A8;
+$lightGreen2: #b0f26d;
+$firstGreen: #025940;
+$secondGreen: #01402e;
+$darkGreen: #01261c;
+$blue: #026873;
+$darkBlue: #023338;
+$white: #E9F5DB;
+
+// Mixin
+@mixin flex($align, $justify, $direction){
+    display: flex;
+    align-items: $align;
+    justify-content: $justify;
+    flex-direction: $direction;
+}

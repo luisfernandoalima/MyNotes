@@ -1,0 +1,100 @@
+header,
+footer {
+  display: none;
+}
+
+body {
+  background-color: #E9F5DB;
+}
+
+.icon-area,
+.form-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.icon-area {
+  background-color: #025940;
+}
+
+.form-area {
+  background-color: #ABD6A8;
+}
+
+form {
+  width: 70%;
+  padding: 20px;
+  border-radius: 30px;
+}
+form h1 {
+  text-align: center;
+  color: #01261c;
+}
+form .input-area {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 20px;
+}
+form .input-area label {
+  font-size: 20px;
+}
+form .input-area input {
+  width: 100%;
+  border-radius: 30px;
+  border: 4px solid #025940;
+  font-size: 20px;
+  padding-left: 15px;
+}
+form .input-area input:focus {
+  outline: none;
+  border-color: #023338;
+}
+form .inputPassword-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  background-color: #fff;
+  border: 4px solid #025940;
+  border-radius: 20px;
+  padding-right: 10px;
+  width: 100%;
+}
+form .inputPassword-div input {
+  border: none;
+}
+form .inputPassword-div i:hover {
+  cursor: pointer;
+}
+form .inputPassword-div:focus-within {
+  border-color: #023338;
+}
+form a {
+  display: block;
+  margin: 10px 0px;
+  color: #023338;
+  font-weight: 500;
+}
+form button {
+  display: block;
+  margin: 25px auto;
+  width: 80%;
+  border: none;
+  border-radius: 30px;
+  color: #E9F5DB;
+  background-color: #025940;
+  font-size: 22px;
+  font-weight: 500;
+  padding: 5px;
+  transition: 0.3s;
+}
+form button:hover {
+  background-color: #01271c;
+}
+
+/*# sourceMappingURL=login.css.map */
