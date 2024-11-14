@@ -1,4 +1,5 @@
 @import "variables.scss";
+@import "models/forms.scss";
 
 header,
 footer {
@@ -25,82 +26,6 @@ body {
 
 .icon-mobile-icon {
   display: none;
-}
-
-form {
-  width: 70%;
-  padding: 20px;
-  border-radius: 30px;
-
-  h2 {
-    text-align: center;
-    color: $darkGreen;
-  }
-
-  .input-area {
-    @include flex(start, center, column);
-    margin-top: 20px;
-
-    label {
-      font-size: 20px;
-    }
-    input {
-      width: 100%;
-      border-radius: 30px;
-      border: 4px solid $firstGreen;
-      font-size: 20px;
-      padding-left: 15px;
-      &:focus {
-        outline: none;
-        border-color: $darkBlue;
-      }
-    }
-  }
-
-  .inputPassword-div {
-    @include flex(center, center, row);
-    background-color: #fff;
-    border: 4px solid $firstGreen;
-    border-radius: 20px;
-    padding-right: 10px;
-    width: 100%;
-
-    input {
-      border: none;
-    }
-
-    i:hover {
-      cursor: pointer;
-    }
-    &:focus-within {
-      border-color: $darkBlue;
-    }
-  }
-
-  a {
-    display: block;
-    margin: 10px 0px;
-    color: $darkBlue;
-    font-weight: 500;
-  }
-
-  button {
-    display: block;
-    margin: 25px auto;
-    width: 80%;
-    border: none;
-    border-radius: 30px;
-    color: $white;
-    background-color: $firstGreen;
-    font-size: 22px;
-    font-weight: 500;
-    padding: 5px;
-    transition: 0.3s;
-
-    &:hover {
-      background-color: darken($firstGreen, 10%);
-    }
-  }
 }
 
 @media (max-width: 768px) {

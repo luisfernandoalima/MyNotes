@@ -1,0 +1,42 @@
+<main>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-md-7 form-area">
+        <div class="icon-mobile-icon">
+            <h1>MyNotes <i class="fa-solid fa-pencil"></i></h1>
+        </div>
+        <form action="" method="post">
+          <h2>Cadastre-se</h2>
+          <div class="input-area">
+            <label for="signinName">Nome de usuário:</label>
+            <input type="text" name="signinName" id="signinName" required>
+          </div>
+          <div class="input-area">
+            <label for="signinEmail">E-mail:</label>
+            <input type="email" name="signinEmail" id="signinEmail" placeholder="meuemail@email.com" required/>
+          </div>
+
+          <div class="input-area">
+            <label for="signinPassword">Senha: </label>
+            <div class="inputPassword-div">
+              <input type="password" name="signinPassword" id="signinPassword" required/>
+              <span><i class="fa-solid fa-eye passwordViewButton"></i></span>
+            </div>
+          </div>
+          <div class="input-area">
+            <label for="signinRepeatPassword">Confirmar senha: </label>
+            <div class="inputPassword-div">
+              <input type="password" name="signinRepeatPassword" id="signinRepeatPassword" required/>
+              <span><i class="fa-solid fa-eye repeatPpasswordViewButton"></i></span>
+            </div>
+          </div>
+          <a href="/login">Já possui conta? Entre aqui!</a>
+          <button type="submit">CADASTRAR</button>
+        </form>
+      </div>
+      <div class="col-sm-12 col-md-5 icon-area">
+        <img src="/img/icon/MyNotesIcon.png" alt="Logo do Sistema" />
+      </div>
+    </div>
+  </div>
+</main>
