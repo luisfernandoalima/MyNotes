@@ -45,4 +45,4 @@ btnSubmit.addEventListener("mouseover", () => {
   }
 });
 
-setInterval(checkErrors, 500);
+setInterval(checkErrors, 100);
