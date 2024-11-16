@@ -70,6 +70,9 @@ form button {
 form button:hover {
   background-color: #01271c;
 }
+form button:disabled {
+  background-color: #2e2e2e;
+}
 
 header,
 footer {
