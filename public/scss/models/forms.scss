@@ -74,6 +74,7 @@ form {
 
     &:disabled{
       background-color: grayscale($firstGreen);
+      border-radius: 5px;
     }
   }
 }
