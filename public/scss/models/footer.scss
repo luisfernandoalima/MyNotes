@@ -1,0 +1,25 @@
+@import "../variables.scss";
+
+footer{
+    @include flex(center, space-between, row);
+    background-color: $darkBlue;
+    padding: 5px 20px;
+
+    .footer-info{
+        p{
+            margin: 0px;
+            color: $white;
+        }
+    }
+
+    .footer-icon{
+        display: flex;
+        gap: 20px;
+
+        a{
+            color: $white;
+            text-decoration: none;
+            font-size: 30px;
+        }
+    }
+}
