@@ -1,0 +1,71 @@
+@import "../variables.scss";
+
+.menuLateral {
+  position: fixed;
+
+  top: 0;
+  right: -500px;
+  height: 100%;
+
+  background-color: $darkBlue;
+  padding: 20px;
+  box-shadow: -4px 6px 10px #000;
+  transition: 0.5s;
+  .menuLateralHeader {
+    @include flex(center, end, row);
+
+    i {
+      color: $lightGreen2;
+      cursor: pointer;
+      font-size: 24px;
+    }
+  }
+
+  nav {
+    @include flex(center, space-between, column);
+    margin-top: 10px;
+    height: 95%;
+  }
+
+  ul {
+    padding: 0px;
+    margin: 0px;
+    text-align: center;
+
+    hr {
+      margin: 10px 0px;
+      border: 1px solid $lightGreen2;
+      opacity: 100;
+    }
+
+    li a {
+      display: block;
+      color: $lightGreen2;
+      font-size: 24px;
+      text-decoration: none;
+      padding: 5px 10px;
+      transition: 0.3s;
+      img {
+        display: block;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      &:hover {
+        background-color: $firstGreen;
+        border-radius: 20px;
+      }
+    }
+  }
+  a {
+    display: flex;
+    img {
+      display: block;
+      width: 40px;
+      height: 40;
+      object-fit: cover;
+    }
+  }
+}

@@ -1,0 +1,66 @@
+@import "../variables.scss";
+@import "menuHamburguer.scss";
+@import "menuLateral.scss";
+header {
+  @include flex(center, space-between, row);
+  background-color: $darkBlue;
+  padding: 5px 20px;
+
+  .systemLogo {
+    a {
+      @include flex(center, space-between, row);
+      text-decoration: none;
+    }
+
+    img {
+      width: 55px;
+    }
+
+    h1 {
+      color: $lightGreen2;
+      font-family: 'Roboto';
+      margin-left: 5px
+    }
+  }
+
+  .menuHorizontal {
+    display: block;
+    ul {
+      @include flex(center, center, row);
+      gap: 10px;
+      margin-bottom: 0px;
+
+        li{
+            display: block;
+            height: min-content;
+        }
+
+      li a {
+        display: block;
+        color: $lightGreen2;
+        font-size: 18px;
+        text-decoration: none;
+        padding: 5px 10px;
+        transition: .3s;
+        img {
+          display: block;
+          width: 25px;
+          height: 25px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+
+        &:hover{
+            background-color: $firstGreen;
+            border-radius: 20px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px){
+    header .menuHorizontal{
+        display: none;
+    }
+}
