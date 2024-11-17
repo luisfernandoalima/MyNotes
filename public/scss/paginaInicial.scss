@@ -1,3 +1,132 @@
-@import 'variables.scss';
-@import 'models/header.scss';
-@import 'models/footer.scss';
+@import "variables.scss";
+@import "models/header.scss";
+@import "models/footer.scss";
+
+main {
+  height: 100vh;
+
+  h2 {
+    font-family: "Roboto", sans-serif;
+    text-align: center;
+    color: $darkGreen;
+  }
+
+  .form-area {
+    @include flex(center, space-between, row);
+
+    a {
+      text-decoration: none;
+      button {
+        display: block;
+        padding: 3px 10px;
+        color: $white;
+        background-color: $firstGreen;
+        border: none;
+        border-radius: 30px;
+        font-size: 20px;
+        transition: 0.3s;
+
+        &:hover {
+          background-color: darken($firstGreen, 10%);
+        }
+      }
+    }
+
+    form {
+      @include flex(center, center, row);
+
+      select {
+        height: 35px;
+        padding: 0px 5px;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+      }
+      button {
+        height: 35px;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+      }
+
+      select,
+      button {
+        border: none;
+        background-color: $white;
+      }
+    }
+  }
+
+  .notes-div {
+    .notes {
+      display: block;
+      width: 100%;
+      padding: 5px;
+      border: 3px solid $firstGreen;
+      border-radius: 30px;
+      background-color: $white;
+
+      .col-1 {
+        @include flex(center, center, row);
+
+        i {
+          font-size: 30px;
+          color: $firstGreen;
+        }
+      }
+
+      .col-9 {
+        h3 {
+          a {
+            color: $firstGreen;
+          }
+        }
+
+        span {
+          font-size: 20px;
+        }
+
+        h4 {
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          /* Esconde o conteúdo que ultrapassa o contêiner */
+          text-overflow: ellipsis;
+          /* Substitui o texto que ultrapassa por reticências */
+          -webkit-line-clamp: 2;
+          /* Número de linhas desejado */
+        }
+      }
+
+      .col-2 {
+        @include flex(center, space-evenly, row);
+
+        a {
+          @include flex(center, center, row);
+          width: 50px;
+          height: 50px;
+          text-decoration: none;
+          border-radius: 10px;
+          transition: 0.3s;
+        }
+
+        i {
+          color: $white;
+          font-size: 25px;
+        }
+
+        .complete-note {
+          background-color: $firstGreen;
+
+          &:hover {
+            background-color: darken($firstGreen, 10%);
+          }
+        }
+        .cancel-note {
+          background-color: #a80000;
+          &:hover {
+            background-color: darken(#a80000, 10%);
+          }
+        }
+      }
+    }
+  }
+}
