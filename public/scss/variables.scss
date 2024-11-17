@@ -1,25 +1,36 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css2?family=Domine:wght@400..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Domine:wght@400..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 // Colors
-$lightGreen1: #ABD6A8;
+$lightGreen1: #abd6a8;
 $lightGreen2: #b0f26d;
 $firstGreen: #025940;
 $secondGreen: #01402e;
 $darkGreen: #01261c;
 $blue: #026873;
 $darkBlue: #023338;
-$white: #E9F5DB;
+$white: #e9f5db;
 
 // Mixin
-@mixin flex($align, $justify, $direction){
-    display: flex;
-    align-items: $align;
-    justify-content: $justify;
-    flex-direction: $direction;
+@mixin flex($align, $justify, $direction) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+  flex-direction: $direction;
 }
 
 // Config
-body{
-    background-color: $lightGreen1;
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: $lightGreen1;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
 }

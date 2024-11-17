@@ -9,15 +9,14 @@
   opacity: 0;
 }
 
-label {
+.label-menu {
   cursor: pointer;
   position: relative;
-  display: block;
   height: 22px;
   width: 30px;
 }
 
-label span {
+.label-menu span {
   position: absolute;
   display: block;
   height: 5px;
@@ -27,28 +26,28 @@ label span {
   transition: 0.25s ease-in-out;
 }
 
-label span:nth-child(1) {
+.label-menu span:nth-child(1) {
   top: 0;
 }
 
-label span:nth-child(2) {
+.label-menu span:nth-child(2) {
   top: 8px;
 }
 
-label span:nth-child(3) {
+.label-menu span:nth-child(3) {
   top: 16px;
 }
 
-#checkbox-menu:checked + label span:nth-child(1) {
+#checkbox-menu:checked + .label-menu span:nth-child(1) {
   transform: rotate(-45deg);
   top: 8px;
 }
 
-#checkbox-menu:checked + label span:nth-child(2) {
+#checkbox-menu:checked + .label-menu span:nth-child(2) {
   opacity: 0;
 }
 
-#checkbox-menu:checked + label span:nth-child(3) {
+#checkbox-menu:checked + .label-menu span:nth-child(3) {
   transform: rotate(45deg);
   top: 8px;
 }

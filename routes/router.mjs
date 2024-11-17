@@ -13,4 +13,8 @@ router.get("/", (req, res) => {
   res.render("index", {titulo: "MyNotes - Página Inicial", css: "paginaInicial.css", js: "paginaInicial.mjs"})
 })
 
+router.get("/new-note", (re1, res) => {
+  res.render("newNote", {titulo: "MyNotes - Nova Nota", css: 'newNote.css', js: "newNote.mjs"})
+})
+
 export default router;

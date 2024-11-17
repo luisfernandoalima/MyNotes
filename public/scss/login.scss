@@ -2,6 +2,7 @@
 @import "models/forms.scss";
 
 header,
+.button-pgUp,
 footer {
   display: none;
 }
@@ -36,9 +37,9 @@ body {
   .icon-mobile-icon {
     @include flex(center, center, row);
     margin-bottom: 25px;
-    h1{
-        font-size: 40px;
-        color: $darkGreen;
+    h1 {
+      font-size: 40px;
+      color: $darkGreen;
     }
   }
 
