@@ -33,13 +33,16 @@ const checkErrors = () => {
 
   hasError = false;
 
-  if (inputs[2].value == "") {
+  if (inputs[3].value == "") {
     errorMessage.push("Preencha o campo senha!");
   } else {
-    if (inputs[2].value != inputs[3].value) {
+    if (inputs[3].value != inputs[4].value) {
       errorMessage.push("As senhas devem ser iguais!");
     }
   }
+  console.log(inputs[3])
+  console.log(inputs[4])
+
   if (errorMessage.length > 0) {
     btnSubmit.disabled = true;
     return errorMessage;
