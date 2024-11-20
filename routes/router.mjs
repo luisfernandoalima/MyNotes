@@ -53,4 +53,12 @@ router.get("/profile", (req, res) => {
   })
 })
 
+router.get("/edit-profile", (req, res) => {
+  res.render("editProfile", {
+    titulo: "MyNotes - Editar Perfil",
+    css: "editProfile.css",
+    js: "editProfile.mjs"
+  })
+})
+
 export default router;
