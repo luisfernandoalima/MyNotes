@@ -45,4 +45,12 @@ router.get("/canceled-notes", (req, res) => {
   })
 })
 
+router.get("/profile", (req, res) => {
+  res.render("profile", {
+    titulo: "MyNotes - Meu Perfil",
+    css: "profile.css",
+    js: "profile.mjs"
+  })
+})
+
 export default router;
