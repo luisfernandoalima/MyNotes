@@ -1,6 +1,7 @@
 import express from "express";
 const router = express.Router();
 import { User } from "../models/User.mjs";
+import { Note } from "../models/Note.mjs";
 import bcrypt from "bcryptjs";
 import mongoose from "mongoose";
 import passport from "passport";
@@ -74,12 +75,17 @@ router.post("/login", (req, res, next) => {
 });
 
 router.get("/",isLogged, (req, res) => {
-  res.render("index", {
-    titulo: "MyNotes - Página Inicial",
-    css: "paginaInicial.css",
-    js: "paginaInicial.mjs",
-    congrats: req.query.congrats || null
-  });
+  Note.find({creator_note: req.user.id, status_note: "Open"}).sort({creationDate_note: 'desc'}).then((nota) => {
+    res.render("index", {
+      titulo: "MyNotes - Página Inicial",
+      css: "paginaInicial.css",
+      js: "paginaInicial.mjs",
+      congrats: req.query.congrats || null,
+      notes: nota
+    });
+  })
+
+
 });
 
 router.get("/new-note", isLogged, (req, res) => {
@@ -87,8 +93,39 @@ router.get("/new-note", isLogged, (req, res) => {
     titulo: "MyNotes - Nova Nota",
     css: "newNote.css",
     js: "newNote.mjs",
+    alert: req.query.alert || null
   });
 });
+
+router.post("/new-note", isLogged, (req, res) => {
+  const newNote = {
+    title_note: req.body.noteTitulo,
+    tag_note: req.body.noteTag,
+    content_note: req.body.noteContent,
+    finishDate_note: req.body.noteDate,
+    creator_note: req.user.id
+  }
+
+  new Note(newNote).save().then(() => {
+    res.redirect("/?congrats=Nota criada com sucesso!")
+  }).catch((err) => {
+    res.redirect("/new-note?alert=Erro ao criar a nota!")
+  })
+})
+
+router.get("/cancel-note/:id",isLogged, (req, res) => {
+  Note.findOne({_id: req.params.id}).then((note) => {
+      note.status_note = "Canceled"
+
+      note.save().then(()=> {
+        res.redirect("/?alert=Nota cancelada com sucesso")
+      }).catch((err)=>{
+        res.redirect("/?alert=Erro ao cancelar a nota!")
+      })
+  }).catch((err) => {
+    res.redirect("/?alert=Erro ao encontrar a nota!")
+  })
+})
 
 router.get("/completed-notes", isLogged, (req, res) => {
   res.render("completedNotes", {

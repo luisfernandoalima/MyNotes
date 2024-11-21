@@ -19,28 +19,33 @@
       </form>
     </div>
     <div class="notes-div mt-4">
-      <div class="notes mb-4">
-        <div class="container">
-          <div class="row">
-            <div class="col-1">
-              <i class="fa-solid fa-book"></i>
-            </div>
-            <div class="col-9">
-              <h3><a href="">Titulo</a> <span><a href="">tag</a></span></h3>
-              <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Voluptate delectus sequi culpa non maiores libero nisi nulla
-                sunt id ut alias natus, in rem at temporibus ea nobis tempora
-                quas?</h4>
-            </div>
-            <div class="col-3 col-md-2">
-              <a href="" class="complete-note"><i
-                  class="fa-solid fa-check"
-                ></i></a>
-              <a href="" class="cancel-note"><i class="fa-solid fa-ban"></i></a>
+
+      {{#if notes}}
+        {{#each notes}}
+          <div class="notes mb-4">
+            <div class="container">
+              <div class="row">
+                <div class="col-1">
+                  <i class="fa-solid fa-book"></i>
+                </div>
+                <div class="col-9">
+                  <h3><a href="">{{title_note}}</a> <span><a href="">{{tag_note}}</a></span></h3>
+                  <h4>{{content_note}}</h4>
+                </div>
+                <div class="col-3 col-md-2">
+                  <a href="" class="complete-note"><i
+                      class="fa-solid fa-check"
+                    ></i></a>
+                  <a href="/cancel-note/{{_id}}" class="cancel-note"><i
+                      class="fa-solid fa-ban"
+                    ></i></a>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        {{/each}}
+      {{else}}
+      {{/if}}
     </div>
   </div>
 </main>
