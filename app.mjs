@@ -10,7 +10,7 @@ auth(passport);
 
 const app = express();
 const PORT = 8081;
-
+// Sessão
 app.use(
   session({
     secret: "MyNotesSession",
@@ -22,6 +22,14 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 
+// Middleware
+
+app.use((req, res, next) => {
+  res.locals.user = req.user || null
+  next()
+})
+
+// HandleBars
 app.engine(
   "handlebars",
   handlebars.engine({
@@ -41,7 +49,9 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 
 import router from "./routes/router.mjs";
+import {routerAdmin} from "./routes/admin.mjs"
 app.use("/", router);
+app.use("/admin", routerAdmin)
 
 mongoose.Promise = global.Promise;
 

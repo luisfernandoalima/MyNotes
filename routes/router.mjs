@@ -7,6 +7,8 @@ import passport from "passport";
 import auth from '../config/auth.mjs'
 auth(passport);
 
+import isLogged from "../helpers/isLogged.mjs";
+
 router.get("/signin", (req, res) => {
   res.render("signin", {
     titulo: "Cadastre-se",
@@ -71,7 +73,7 @@ router.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
-router.get("/", (req, res) => {
+router.get("/",isLogged, (req, res) => {
   res.render("index", {
     titulo: "MyNotes - Página Inicial",
     css: "paginaInicial.css",
@@ -80,7 +82,7 @@ router.get("/", (req, res) => {
   });
 });
 
-router.get("/new-note", (req, res) => {
+router.get("/new-note", isLogged, (req, res) => {
   res.render("newNote", {
     titulo: "MyNotes - Nova Nota",
     css: "newNote.css",
@@ -88,7 +90,7 @@ router.get("/new-note", (req, res) => {
   });
 });
 
-router.get("/completed-notes", (req, res) => {
+router.get("/completed-notes", isLogged, (req, res) => {
   res.render("completedNotes", {
     titulo: "MyNotes - Notas Concluídas",
     css: "completedNotes.css",
@@ -96,7 +98,7 @@ router.get("/completed-notes", (req, res) => {
   });
 });
 
-router.get("/canceled-notes", (req, res) => {
+router.get("/canceled-notes", isLogged, (req, res) => {
   res.render("canceledNotes", {
     titulo: "MyNotes - Notas Canceladas",
     css: "canceledNotes.css",
@@ -104,7 +106,7 @@ router.get("/canceled-notes", (req, res) => {
   });
 });
 
-router.get("/profile", (req, res) => {
+router.get("/profile", isLogged, (req, res) => {
   res.render("profile", {
     titulo: "MyNotes - Meu Perfil",
     css: "profile.css",
@@ -112,7 +114,7 @@ router.get("/profile", (req, res) => {
   });
 });
 
-router.get("/edit-profile", (req, res) => {
+router.get("/edit-profile", isLogged, (req, res) => {
   res.render("editProfile", {
     titulo: "MyNotes - Editar Perfil",
     css: "editProfile.css",
@@ -120,7 +122,7 @@ router.get("/edit-profile", (req, res) => {
   });
 });
 
-router.get("/logout", (req, res, next) => {
+router.get("/logout", isLogged, (req, res, next) => {
   req.logOut((err) => {
     if (err) {
       return next(err);
