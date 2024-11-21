@@ -5,7 +5,7 @@ import { Note } from "../models/Note.mjs";
 import bcrypt from "bcryptjs";
 import mongoose from "mongoose";
 import passport from "passport";
-import auth from '../config/auth.mjs'
+import auth from "../config/auth.mjs";
 auth(passport);
 
 import isLogged from "../helpers/isLogged.mjs";
@@ -74,18 +74,19 @@ router.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
-router.get("/",isLogged, (req, res) => {
-  Note.find({creator_note: req.user.id, status_note: "Open"}).sort({creationDate_note: 'desc'}).then((nota) => {
-    res.render("index", {
-      titulo: "MyNotes - Página Inicial",
-      css: "paginaInicial.css",
-      js: "paginaInicial.mjs",
-      congrats: req.query.congrats || null,
-      notes: nota
+router.get("/", isLogged, (req, res) => {
+  Note.find({ creator_note: req.user.id, status_note: "Open" })
+    .sort({ creationDate_note: "desc" })
+    .then((nota) => {
+      res.render("index", {
+        titulo: "MyNotes - Página Inicial",
+        css: "paginaInicial.css",
+        js: "paginaInicial.mjs",
+        alert: req.query.alert || null,
+        congrats: req.query.congrats || null,
+        notes: nota,
+      });
     });
-  })
-
-
 });
 
 router.get("/new-note", isLogged, (req, res) => {
@@ -93,7 +94,7 @@ router.get("/new-note", isLogged, (req, res) => {
     titulo: "MyNotes - Nova Nota",
     css: "newNote.css",
     js: "newNote.mjs",
-    alert: req.query.alert || null
+    alert: req.query.alert || null,
   });
 });
 
@@ -103,43 +104,106 @@ router.post("/new-note", isLogged, (req, res) => {
     tag_note: req.body.noteTag,
     content_note: req.body.noteContent,
     finishDate_note: req.body.noteDate,
-    creator_note: req.user.id
-  }
+    creator_note: req.user.id,
+  };
 
-  new Note(newNote).save().then(() => {
-    res.redirect("/?congrats=Nota criada com sucesso!")
-  }).catch((err) => {
-    res.redirect("/new-note?alert=Erro ao criar a nota!")
-  })
-})
+  new Note(newNote)
+    .save()
+    .then(() => {
+      res.redirect("/?congrats=Nota criada com sucesso!");
+    })
+    .catch((err) => {
+      res.redirect("/new-note?alert=Erro ao criar a nota!");
+    });
+});
 
-router.get("/cancel-note/:id",isLogged, (req, res) => {
-  Note.findOne({_id: req.params.id}).then((note) => {
-      note.status_note = "Canceled"
+router.get("/complete-note/:id", (req, res) => {
+  Note.findOne({ _id: req.params.id })
+    .then((note) => {
+      note.status_note = "Completed";
+      note
+        .save()
+        .then(() => {
+          res.redirect("/?congrats=Nota completada com sucesso");
+        })
+        .catch((err) => {
+          res.redirect("/?alert=Erro ao completar a nota!");
+        });
+    })
+    .catch((err) => {
+      res.redirect("/?alert=Erro ao encontrar a nota!");
+    });
+});
 
-      note.save().then(()=> {
-        res.redirect("/?alert=Nota cancelada com sucesso")
-      }).catch((err)=>{
-        res.redirect("/?alert=Erro ao cancelar a nota!")
-      })
-  }).catch((err) => {
-    res.redirect("/?alert=Erro ao encontrar a nota!")
-  })
-})
+router.get("/cancel-note/:id", isLogged, (req, res) => {
+  Note.findOne({ _id: req.params.id })
+    .then((note) => {
+      note.status_note = "Canceled";
+
+      note
+        .save()
+        .then(() => {
+          res.redirect("/?alert=Nota cancelada com sucesso");
+        })
+        .catch((err) => {
+          res.redirect("/?alert=Erro ao cancelar a nota!");
+        });
+    })
+    .catch((err) => {
+      res.redirect("/?alert=Erro ao encontrar a nota!");
+    });
+});
 
 router.get("/completed-notes", isLogged, (req, res) => {
-  res.render("completedNotes", {
-    titulo: "MyNotes - Notas Concluídas",
-    css: "completedNotes.css",
-    js: "completedNotes.mjs",
-  });
+  Note.find({ creator_note: req.user.id, status_note: "Completed" }).then(
+    (note) => {
+      res.render("completedNotes", {
+        titulo: "MyNotes - Notas Concluídas",
+        css: "completedNotes.css",
+        js: "completedNotes.mjs",
+        alert: req.query.alert || null,
+        congrats: req.query.congrats || null,
+        notes: note,
+      });
+    }
+  );
 });
 
 router.get("/canceled-notes", isLogged, (req, res) => {
-  res.render("canceledNotes", {
-    titulo: "MyNotes - Notas Canceladas",
-    css: "canceledNotes.css",
-    js: "canceledNotes.mjs",
+  Note.find({ creator_note: req.user.id, status_note: "Canceled" }).then(
+    (note) => {
+      res.render("canceledNotes", {
+        titulo: "MyNotes - Notas Canceladas",
+        css: "canceledNotes.css",
+        js: "canceledNotes.mjs",
+        alert: req.query.alert || null,
+        congrats: req.query.congrats || null,
+        notes: note,
+      });
+    }
+  );
+});
+
+router.get("/remove-note/:page/:id", (req, res) => {
+  Note.findOne({ _id: req.params.id }).then((note) => {
+    note.status_note = "Deleted";
+
+    note
+      .save()
+      .then(() => {
+        if (req.params.page == "completed") {
+          res.redirect("/completed-notes?congrats=Removido com sucesso!");
+        } else if (req.params.page == "canceled") {
+          res.redirect("/canceled-notes?congrats=Removido com sucesso!");
+        }
+      })
+      .catch((err) => {
+        if (req.params.page == "completed") {
+          res.redirect("/completed-notes?alert=Erro ao remover a nota!");
+        } else if (req.params.page == "canceled") {
+          res.redirect("/canceled-notes?alert=Erro ao remover a nota!");
+        }
+      });
   });
 });
 
@@ -148,6 +212,8 @@ router.get("/profile", isLogged, (req, res) => {
     titulo: "MyNotes - Meu Perfil",
     css: "profile.css",
     js: "profile.mjs",
+    alert: req.query.alert || null,
+    congrats: req.query.congrats || null,
   });
 });
 
@@ -156,6 +222,8 @@ router.get("/edit-profile", isLogged, (req, res) => {
     titulo: "MyNotes - Editar Perfil",
     css: "editProfile.css",
     js: "editProfile.mjs",
+    alert: req.query.alert || null,
+    congrats: req.query.congrats || null,
   });
 });
 
