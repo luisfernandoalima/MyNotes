@@ -4,10 +4,9 @@ import handlebars from "express-handlebars";
 import bodyParser from "body-parser";
 import session from "express-session";
 import mongoose from "mongoose";
-import passport from "passport";
-import {configureAuth} from './config/auth.mjs'; // A função exportada como padrão
-
-configureAuth(passport);  // Chama a função passando o passport
+import passport from 'passport';
+import auth from './config/auth.mjs'
+auth(passport);
 
 const app = express();
 const PORT = 8081;

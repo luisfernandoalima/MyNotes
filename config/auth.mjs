@@ -1,24 +1,20 @@
+import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
 import { User } from "../models/User.mjs";
 
-// No arquivo './config/auth.js'
-export function configureAuth(passport) {
+const Passport = function (passport) {
   passport.use(
     new LocalStrategy(
       {
+        // Define os campos do login
         usernameField: "loginEmail",
         passwordField: "loginPassword",
       },
       function (username, password, done) {
-        // Procura o usuário com o 'username' (que neste caso é o 'email_user')
-        User.findOne({ email_user: username }).then((err, user) => {
-          if (err) {
-            return done(err); // Retorna oF erro se acontecer
-          }
-
+        User.findOne({ email_user: username }).then((user) => {
           if (!user) {
             return done(null, false, { message: "Essa conta não existe" });
           }
@@ -39,30 +35,18 @@ export function configureAuth(passport) {
       }
     )
   );
-  // passport.use(
-  //   new LocalStrategy(
-  //     {
-  //       usernameField: "loginEmail",
-  //       passwordField: "loginPassword",
-  //     },
-  //     (email, password, done) => {
-  //       User.findOne({ email_user: email }).then((user) => {
-  //         if (!user) return done(null, false);
-  //         const isValid = bcrypt.compare(password, user.password_user);
-  //         if (isValid) return done(null, false);
-  //         return done(null, user);
-  //       });
-  //     }
-  //   )
-  // );
 
   passport.serializeUser((user, done) => {
     done(null, user.id);
   });
 
   passport.deserializeUser((id, done) => {
-    User.findById(id).then((user) => {
-      done(null, user);
-    });
+    User.findById(id)
+      .then((user) => {
+        done(null, user);
+      })
+      .catch((err) => done(err));
   });
-}
+};
+
+export default Passport;

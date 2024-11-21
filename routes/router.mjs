@@ -4,8 +4,8 @@ import { User } from "../models/User.mjs";
 import bcrypt from "bcryptjs";
 import mongoose from "mongoose";
 import passport from "passport";
-import { configureAuth } from "../config/auth.mjs";
-configureAuth(passport);
+import auth from '../config/auth.mjs'
+auth(passport);
 
 router.get("/signin", (req, res) => {
   res.render("signin", {
@@ -65,8 +65,8 @@ router.get("/login", (req, res) => {
 
 router.post("/login", (req, res, next) => {
   passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/login",
+    successRedirect: "/?congrats=Bem vindo!",
+    failureRedirect: "/login?alert=Senha incorreta!",
     failureFlash: false,
   })(req, res, next);
 });
@@ -76,6 +76,7 @@ router.get("/", (req, res) => {
     titulo: "MyNotes - Página Inicial",
     css: "paginaInicial.css",
     js: "paginaInicial.mjs",
+    congrats: req.query.congrats || null
   });
 });
 

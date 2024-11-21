@@ -19,15 +19,23 @@
     {{>_linksJS}}
     <script type="module" src="/js/{{js}}"></script>
 
-   {{#if alert}}
+    {{#if alert}}
     <script type="module">
         import CreateToastify from "/js/class/Toastify.mjs";
 
         const Toastify = new CreateToastify();
 
         Toastify.toastError("{{alert}}"); // Mostra o alerta no Toastify
-        console.log("{{alert}}")
     </script>
-{{/if}}
+    {{/if}}
+    {{#if congrats}}
+    <script type="module">
+        import CreateToastify from "/js/class/Toastify.mjs";
+
+        const Toastify = new CreateToastify();
+
+        Toastify.toastSuccess("{{congrats}}"); // Mostra o alerta no Toastify
+    </script>
+    {{/if}}
 </body>
 </html>
