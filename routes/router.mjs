@@ -207,6 +207,23 @@ router.get("/remove-note/:page/:id", (req, res) => {
   });
 });
 
+router.get("/note/:id", (req, res) => {
+  Note.findOne({ _id: req.params.id }).then((note) => {
+    if (note.creator_note != req.user.id) {
+      res.redirect("/logout");
+    } else {
+      res.render("note", {
+        titulo: note.title_note,
+        css: "note.css",
+        js: "note.mjs",
+        alert: req.query.alert || null,
+        congrats: req.query.congrats || null,
+        notes: note,
+      });
+    }
+  });
+});
+
 router.get("/profile", isLogged, (req, res) => {
   res.render("profile", {
     titulo: "MyNotes - Meu Perfil",
@@ -228,8 +245,10 @@ router.get("/edit-profile", isLogged, (req, res) => {
 });
 
 router.post("/save-profile", upload.single("userImage"), (req, res, next) => {
-
-  if(req.body.userPasswordInput == '' && req.body.userRepeatPasswordInput == ''){
+  if (
+    req.body.userPasswordInput == "" &&
+    req.body.userRepeatPasswordInput == ""
+  ) {
     User.findOne({ _id: req.user.id }).then((user) => {
       const fileName = req.file.originalname;
       let reverse = fileName.split(".").reverse();
