@@ -7,6 +7,21 @@ import mongoose from "mongoose";
 import passport from "passport";
 import auth from "../config/auth.mjs";
 auth(passport);
+import multer from "multer";
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./public/img/users/");
+  },
+  filename: (req, file, cb) => {
+    const fileName = file.originalname;
+    let reverse = fileName.split(".").reverse();
+    let arrayFileName = req.user.id + "." + reverse[0];
+
+    cb(null, arrayFileName);
+  },
+});
+
+const upload = multer({ storage: storage });
 
 import isLogged from "../helpers/isLogged.mjs";
 
@@ -224,6 +239,18 @@ router.get("/edit-profile", isLogged, (req, res) => {
     js: "editProfile.mjs",
     alert: req.query.alert || null,
     congrats: req.query.congrats || null,
+  });
+});
+
+router.post("/save-profile", upload.single("userImage"), (req, res, next) => {
+  User.findOne({ _id: req.user.id }).then((user) => {
+    const fileName = req.file.originalname;
+    let reverse = fileName.split(".").reverse();
+    let arrayFileName = req.user.id + "." + reverse[0];
+    user.image_user = arrayFileName;
+    user.save().then(() => {
+      res.redirect("/?congrats=Salvo com sucesso!");
+    });
   });
 });
 

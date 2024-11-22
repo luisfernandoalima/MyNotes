@@ -1,9 +1,11 @@
 const uploadInput = document.querySelector("#userImage");
 const imageTag = document.querySelector("#userPicture");
-
+const imageText = document.querySelector(".userImageText")
 uploadInput.addEventListener("change", () => {
   const file = event.target.files[0];
   imageTag.src = URL.createObjectURL(file);
+
+  imageText.textContent = uploadInput.files[0].name
 });
 
 import PasswordVisibility from "./class/PasswordVisibility.mjs";
@@ -23,22 +25,10 @@ const checkErrors = () => {
   let hasError = false;
   let errorMessage = [];
 
-  inputs.forEach((input) => {
-    if (input.value == null || input.value == undefined || input.value == "") {
-      hasError = true;
-    }
-  });
-
-  if (hasError) {
-    errorMessage.push("Os campos devem estar preenchidos!");
-  }
-
-  hasError = false;
-
-  if (inputs[3].value == "") {
+  if (inputs[4].value == "") {
     errorMessage.push("Preencha o campo senha!");
   } else {
-    if (inputs[3].value != inputs[4].value) {
+    if (inputs[4].value != inputs[5].value) {
       errorMessage.push("As senhas devem ser iguais!");
     }
   }
