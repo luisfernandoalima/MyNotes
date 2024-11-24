@@ -3,25 +3,27 @@
     <div class="note-div">
       <div class="note-header">
         <div class="note-title">
-          <h2>Titulo</h2>
-          <h3><a href="">Tag</a></h3>
+          <h2>{{notes.title_note}}</h2>
+          <h3><a href="">{{notes.tag_note}}</a></h3>
         </div>
         <div class="button-div">
-          <a href="/complete-note/{{_id}}" class="complete-note"><i
-              class="fa-solid fa-check"
-            ></i></a>
-          <a href="/cancel-note/{{_id}}" class="cancel-note"><i
-              class="fa-solid fa-ban"
-            ></i></a>
+          {{#if open}}
+            <a href="/complete-note/{{notes._id}}" class="complete-note"><i
+                class="fa-solid fa-check"
+              ></i></a>
+            <a href="/cancel-note/{{notes._id}}" class="cancel-note"><i
+                class="fa-solid fa-ban"
+              ></i></a>
+          {{/if}}
         </div>
       </div>
       <div class="note-dates">
-        <span>Data de criação:</span>
-        <span>Data de finalização:</span>
+        <span>Data de criação: {{notes.creationDate_note}}</span>
+        <span>Data de finalização:{{notes.finishDate_note}}</span>
       </div>
-      <hr>
+      <hr />
       <div class="note-content">
-        <p>Meu conteúdo</p>
+        <p>{{notes.content_note}}</p>
       </div>
     </div>
   </div>

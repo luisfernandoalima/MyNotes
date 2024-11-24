@@ -207,35 +207,33 @@ router.get("/remove-note/:page/:id", (req, res) => {
   });
 });
 
-router.get("/notas", (req, res) => {
-  res.render("note", {
-    titulo: "Olá",
-    css: "note.css",
-    js: "note.mjs",
-    alert: req.query.alert || null,
-    congrats: req.query.congrats || null,
-  });
-});
-
-router.get("/note/:id", (req, res) => {
+router.get("/note", (req, res) => {
   if (
-    req.params.id == "" ||
-    req.params.id === null ||
-    req.params.id === undefined
+    req.query.noteId == "" ||
+    req.query.noteId === null ||
+    req.query.noteId === undefined
   ) {
-    res.redirect("/logout");
+    res.redirect("/?alert=Erro em achar a nota");
   } else {
-    Note.findOne({ _id: req.params.id })
+    Note.findOne({ _id: req.query.noteId })
       .then((note) => {
         if (note.creator_note != req.user.id) {
-          res.redirect("/logout");
+          res.redirect("/?alert=Erro em achar a nota");
         } else {
+          let open
+          if (note.status_note == "Open") {
+            open = true
+          }else{
+            open = false
+          }
+
           res.render("note", {
             titulo: note.title_note,
             css: "note.css",
             js: "note.mjs",
             alert: req.query.alert || null,
             congrats: req.query.congrats || null,
+            open: open,
             notes: note,
           });
         }
