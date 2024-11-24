@@ -207,21 +207,43 @@ router.get("/remove-note/:page/:id", (req, res) => {
   });
 });
 
-router.get("/note/:id", (req, res) => {
-  Note.findOne({ _id: req.params.id }).then((note) => {
-    if (note.creator_note != req.user.id) {
-      res.redirect("/logout");
-    } else {
-      res.render("note", {
-        titulo: note.title_note,
-        css: "note.css",
-        js: "note.mjs",
-        alert: req.query.alert || null,
-        congrats: req.query.congrats || null,
-        notes: note,
-      });
-    }
+router.get("/notas", (req, res) => {
+  res.render("note", {
+    titulo: "Olá",
+    css: "note.css",
+    js: "note.mjs",
+    alert: req.query.alert || null,
+    congrats: req.query.congrats || null,
   });
+});
+
+router.get("/note/:id", (req, res) => {
+  if (
+    req.params.id == "" ||
+    req.params.id === null ||
+    req.params.id === undefined
+  ) {
+    res.redirect("/logout");
+  } else {
+    Note.findOne({ _id: req.params.id })
+      .then((note) => {
+        if (note.creator_note != req.user.id) {
+          res.redirect("/logout");
+        } else {
+          res.render("note", {
+            titulo: note.title_note,
+            css: "note.css",
+            js: "note.mjs",
+            alert: req.query.alert || null,
+            congrats: req.query.congrats || null,
+            notes: note,
+          });
+        }
+      })
+      .catch((err) => {
+        res.redirect("/login?alert=Erro ao acessar o link!");
+      });
+  }
 });
 
 router.get("/profile", isLogged, (req, res) => {
