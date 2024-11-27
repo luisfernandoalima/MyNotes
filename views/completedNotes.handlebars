@@ -1,4 +1,4 @@
-<main class="mt-4">
+<main class="mt-4 mb-4">
   <div class="container">
     <h2>Notas Concluídas</h2>
     <div class="form-area">
@@ -22,13 +22,15 @@
                   <i class="fa-solid fa-book"></i>
                 </div>
                 <div class="col-9">
-                  <h3><a href="/note?noteId={{_id}}">{{title_note}}</a> <span><a href="">{{tag_note}}</a></span></h3>
+                  <h3><a href="/note?noteId={{_id}}">{{title_note}}</a>
+                    <span><a href="">{{tag_note}}</a></span></h3>
                   <h4>{{content_note}}</h4>
                 </div>
                 <div class="col-2">
-                  <a href="/remove-note/completed/{{_id}}" class="cancel-note"><i
-                      class="fa-solid fa-trash"
-                    ></i></a>
+                  <a
+                    href="/remove-note/completed/{{_id}}"
+                    class="cancel-note"
+                  ><i class="fa-solid fa-trash"></i></a>
                 </div>
               </div>
             </div>

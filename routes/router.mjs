@@ -207,7 +207,7 @@ router.get("/remove-note/:page/:id", (req, res) => {
   });
 });
 
-router.get("/note", (req, res) => {
+router.get("/note", isLogged, (req, res) => {
   if (
     req.query.noteId == "" ||
     req.query.noteId === null ||
@@ -220,11 +220,11 @@ router.get("/note", (req, res) => {
         if (note.creator_note != req.user.id) {
           res.redirect("/?alert=Erro em achar a nota");
         } else {
-          let open
+          let open;
           if (note.status_note == "Open") {
-            open = true
-          }else{
-            open = false
+            open = true;
+          } else {
+            open = false;
           }
 
           res.render("note", {
@@ -242,6 +242,21 @@ router.get("/note", (req, res) => {
         res.redirect("/login?alert=Erro ao acessar o link!");
       });
   }
+});
+
+router.get("/tag", isLogged, (req, res) => {
+  Note.find({ tag_note: req.query.tag }).then((note) => {
+    res.render("tag", {
+      titulo: note.title_note,
+      css: "tag.css",
+      js: "tag.mjs",
+      alert: req.query.alert || null,
+      congrats: req.query.congrats || null,
+      notes: note,
+    });
+  }).catch(err => {
+    res.redirect("/?alert=Erro ao buscar a tag")
+  });
 });
 
 router.get("/profile", isLogged, (req, res) => {

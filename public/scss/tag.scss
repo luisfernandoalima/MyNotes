@@ -1,0 +1,9 @@
+@import 'paginaInicial.scss';
+
+.Open, .Completed{
+    color: $firstGreen;
+}
+
+.Canceled{
+    color: #a80000;
+}
