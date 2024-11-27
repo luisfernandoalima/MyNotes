@@ -16,6 +16,7 @@ router.get("/signin", (req, res) => {
     css: "signin.css",
     js: "signin.mjs",
     alert: req.query.alert || null,
+    congrats: req.query.congrats || null,
   });
 });
 
@@ -35,18 +36,18 @@ router.post("/signin", (req, res) => {
           bcrypt.hash(newUser.password_user, salt, (err, hash) => {
             if (err) {
               console.log(`Erro ao criar o salt: ${err}`);
-              res.redirect("/");
+              res.redirect("/signin?alert=Erro ao criar a conta");
             }
             newUser.password_user = hash;
             new User(newUser)
               .save()
               .then(() => {
                 console.log("Salvo com sucesso!");
-                res.redirect("/");
+                res.redirect("/login?congrats=Conta criada com sucesso!");
               })
               .catch((err) => {
                 console.log(`Erro ao salvar: ${err}`);
-                res.redirect("/");
+                res.redirect("/signin?alert=Erro ao criar a conta");
               });
           });
         });
@@ -63,6 +64,7 @@ router.get("/login", (req, res) => {
     css: "login.css",
     js: "login.mjs",
     alert: req.query.alert || null,
+    congrats: req.query.congrats || null,
   });
 });
 
