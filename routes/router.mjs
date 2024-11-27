@@ -9,6 +9,7 @@ import auth from "../config/auth.mjs";
 auth(passport);
 import upload from "../helpers/photoUpload.mjs";
 import isLogged from "../helpers/isLogged.mjs";
+import dateFormat from "../helpers/dateFormat.mjs";
 
 router.get("/signin", (req, res) => {
   res.render("signin", {
@@ -249,6 +250,8 @@ router.get("/note", isLogged, (req, res) => {
             open = false;
           }
 
+          const creationDate = dateFormat(note.creationDate_note)
+          const finishDate = dateFormat(note.finishDate_note)
           res.render("note", {
             titulo: note.title_note,
             css: "note.css",
@@ -257,6 +260,8 @@ router.get("/note", isLogged, (req, res) => {
             congrats: req.query.congrats || null,
             open: open,
             notes: note,
+            creationDate: creationDate,
+            finishDate: finishDate,
           });
         }
       })
@@ -321,10 +326,9 @@ router.post("/save-profile", (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(req.body.userPasswordInput, salt);
 
-    user.password_user = hash
+    user.password_user = hash;
 
-    user.save()
-      .then(res.redirect("/profile?congrats=Atualizado com sucesso!"));
+    user.save().then(res.redirect("/profile?congrats=Atualizado com sucesso!"));
   });
 });
 
