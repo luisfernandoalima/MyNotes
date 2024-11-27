@@ -4,44 +4,57 @@
   </a>
   <h1>Editar Perfil</h1>
   <div class="container">
-     <form action="/save-profile" method="post" enctype="multipart/form-data" class="mt-4 editProfile-div">
-      <div class="row">
-        <div class="col-sm-12 col-md-6 img-row">
-          <div class="img-profile-div">
-            <div class="img-profile">
-              <img src="/img/users/{{user.image_user}}" alt="Foto do usuário" id="userPicture"/>
-            </div>
-            <input type="file" name="userImage" id="userImage" />
-            <span class="userImageText mt-2">nome da foto</span>
-            <label for="userImage" class="userImageButton mt-2">Escolher Imagem</label>
-          </div>
-        </div>
-        <div class="col-sm-12 col-md-6">
-          <div class="input-area">
-            <label for="userNameInput">Nome de usuário: </label>
-            <input type="text" name="userNameInput" id="userNameInput" value="{{user.name_user}}" required>
-          </div>
-          <div class="input-area">
-            <label for="userEmailInput">E-mail: </label>
-            <input type="email" name="userEmailInput" id="userEmailInput" placeholder="meuemail@email.com" value="{{user.email_user}}" required>
-          </div>
-          <div class="input-area">
-            <label for="userPasswordInput">Nova senha: </label>
-            <div class="inputPassword-div">
-              <input type="password" name="userPasswordInput" id="userPasswordInput" required>
-              <span><i class="fa-solid fa-eye passwordViewButton"></i></span>
-            </div>
-          </div>
-          <div class="input-area repeat-area disable">
-            <label for="userRepeatPasswordInput">Confirmar senha: </label>
-            <div class="inputPassword-div">
-              <input type="password" name="userRepeatPasswordInput" id="userRepeatPasswordInput" required>
-              <span><i class="fa-solid fa-eye repeatPasswordViewButton"></i></span>
-            </div>
-          </div>
-          <button type="submit" class="btn-submit" disabled>SALVAR</button>
+    <form
+      action="/save-profile"
+      method="post"
+      class="mt-4 editProfile-div"
+    >
+      <div class="input-area">
+        <label for="userNameInput">Nome de usuário: </label>
+        <input
+          type="text"
+          name="userNameInput"
+          id="userNameInput"
+          value="{{user.name_user}}"
+          required
+        />
+      </div>
+      <div class="input-area">
+        <label for="userEmailInput">E-mail: </label>
+        <input
+          type="email"
+          name="userEmailInput"
+          id="userEmailInput"
+          placeholder="meuemail@email.com"
+          value="{{user.email_user}}"
+          required
+        />
+      </div>
+      <div class="input-area">
+        <label for="userPasswordInput">Nova senha: </label>
+        <div class="inputPassword-div">
+          <input
+            type="password"
+            name="userPasswordInput"
+            id="userPasswordInput"
+            required
+          />
+          <span><i class="fa-solid fa-eye passwordViewButton"></i></span>
         </div>
       </div>
+      <div class="input-area repeat-area disable">
+        <label for="userRepeatPasswordInput">Confirmar senha: </label>
+        <div class="inputPassword-div">
+          <input
+            type="password"
+            name="userRepeatPasswordInput"
+            id="userRepeatPasswordInput"
+            required
+          />
+          <span><i class="fa-solid fa-eye repeatPasswordViewButton"></i></span>
+        </div>
+      </div>
+      <button type="submit" class="btn-submit" disabled>SALVAR</button>
     </form>
   </div>
 </main>

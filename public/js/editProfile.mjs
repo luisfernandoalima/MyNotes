@@ -1,13 +1,3 @@
-const uploadInput = document.querySelector("#userImage");
-const imageTag = document.querySelector("#userPicture");
-const imageText = document.querySelector(".userImageText")
-uploadInput.addEventListener("change", () => {
-  const file = event.target.files[0];
-  imageTag.src = URL.createObjectURL(file);
-
-  imageText.textContent = uploadInput.files[0].name
-});
-
 import PasswordVisibility from "./class/PasswordVisibility.mjs";
 
 const CreatePasswordVisibility = new PasswordVisibility('#userPasswordInput', '.passwordViewButton').initializeChangeVisibility()
@@ -25,10 +15,10 @@ const checkErrors = () => {
   let hasError = false;
   let errorMessage = [];
 
-  if (inputs[4].value == "") {
+  if (inputs[3].value == "") {
     errorMessage.push("Preencha o campo senha!");
   } else {
-    if (inputs[4].value != inputs[5].value) {
+    if (inputs[3].value != inputs[4].value) {
       errorMessage.push("As senhas devem ser iguais!");
     }
   }

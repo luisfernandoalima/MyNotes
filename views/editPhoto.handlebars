@@ -1,0 +1,28 @@
+<main>
+  <a href="javascript:window.history.back()" class="back-button">
+    <i class="fa-solid fa-arrow-left"></i>
+  </a>
+  <h1>Editar Perfil</h1>
+  <div class="container">
+    <form
+      action="/save-photo"
+      method="post"
+      enctype="multipart/form-data"
+      class="mt-4 editProfile-div"
+    >
+      <div class="img-profile-div">
+        <div class="img-profile">
+          <img
+            src="/img/users/{{user.image_user}}"
+            alt="Foto do usuário"
+            id="userPicture"
+          />
+        </div>
+        <input type="file" name="userImage" id="userImage" required/>
+        <span class="userImageText mt-2">nome da foto</span>
+        <label for="userImage" class="userImageButton mt-2">Escolher Imagem</label>
+        <button type="submit" class="btn-submit">SALVAR</button>
+      </div>
+    </form>
+  </div>
+</main>

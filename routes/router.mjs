@@ -85,7 +85,27 @@ router.get("/", isLogged, (req, res) => {
         alert: req.query.alert || null,
         congrats: req.query.congrats || null,
         notes: nota,
+        noteFilter: req.body.noteFilter || "desc",
       });
+    });
+});
+
+router.post("/", (req, res) => {
+  Note.find({ creator_note: req.user.id, status_note: "Open" })
+    .sort({ creationDate_note: req.body.noteFilter })
+    .then((nota) => {
+      res.render("index", {
+        titulo: "MyNotes - Página Inicial",
+        css: "paginaInicial.css",
+        js: "paginaInicial.mjs",
+        alert: req.query.alert || null,
+        congrats: req.query.congrats || null,
+        notes: nota,
+        noteFilter: req.body.noteFilter || "asc",
+      });
+    })
+    .catch((err) => {
+      res.redirect("/");
     });
 });
 
@@ -245,18 +265,20 @@ router.get("/note", isLogged, (req, res) => {
 });
 
 router.get("/tag", isLogged, (req, res) => {
-  Note.find({ tag_note: req.query.tag }).then((note) => {
-    res.render("tag", {
-      titulo: note.title_note,
-      css: "tag.css",
-      js: "tag.mjs",
-      alert: req.query.alert || null,
-      congrats: req.query.congrats || null,
-      notes: note,
+  Note.find({ tag_note: req.query.tag })
+    .then((note) => {
+      res.render("tag", {
+        titulo: note.title_note,
+        css: "tag.css",
+        js: "tag.mjs",
+        alert: req.query.alert || null,
+        congrats: req.query.congrats || null,
+        notes: note,
+      });
+    })
+    .catch((err) => {
+      res.redirect("/?alert=Erro ao buscar a tag");
     });
-  }).catch(err => {
-    res.redirect("/?alert=Erro ao buscar a tag")
-  });
 });
 
 router.get("/profile", isLogged, (req, res) => {
@@ -279,21 +301,41 @@ router.get("/edit-profile", isLogged, (req, res) => {
   });
 });
 
-router.post("/save-profile", upload.single("userImage"), (req, res, next) => {
-  if (
-    req.body.userPasswordInput == "" &&
-    req.body.userRepeatPasswordInput == ""
-  ) {
-    User.findOne({ _id: req.user.id }).then((user) => {
-      const fileName = req.file.originalname;
-      let reverse = fileName.split(".").reverse();
-      let arrayFileName = req.user.id + "." + reverse[0];
-      user.image_user = arrayFileName;
-      user.save().then(() => {
-        res.redirect("/?congrats=Salvo com sucesso!");
-      });
+router.get("/edit-photo", isLogged, (req, res) => {
+  res.render("editPhoto", {
+    titulo: "MyNotes - Editar Foto de Perfil",
+    css: "editProfile.css",
+    js: "editPhoto.mjs",
+    alert: req.query.alert || null,
+    congrats: req.query.congrats || null,
+  });
+});
+
+router.post("/save-profile", (req, res) => {
+  User.findOne({ _id: req.user.id }).then(async (user) => {
+    user.name_user = req.body.userNameInput;
+    user.email_user = req.body.userEmailInput;
+
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(req.body.userPasswordInput, salt);
+
+    user.password_user = hash
+
+    user.save()
+      .then(res.redirect("/profile?congrats=Atualizado com sucesso!"));
+  });
+});
+
+router.post("/save-photo", upload.single("userImage"), (req, res, next) => {
+  User.findOne({ _id: req.user.id }).then((user) => {
+    const fileName = req.file.originalname;
+    let reverse = fileName.split(".").reverse();
+    let arrayFileName = req.user.id + "." + reverse[0];
+    user.image_user = arrayFileName;
+    user.save().then(() => {
+      res.redirect("/profile?congrats=Salvo com sucesso!");
     });
-  }
+  });
 });
 
 router.get("/logout", isLogged, (req, res, next) => {
