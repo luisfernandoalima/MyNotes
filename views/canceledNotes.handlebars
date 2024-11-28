@@ -1,11 +1,19 @@
-<main class="mt-4  mb-4">
+<main class="mt-4 mb-4">
   <div class="container">
     <h2>Notas Canceladas</h2>
     <div class="form-area">
-      <form action="/" method="get">
+      <form action="/order-canceled" method="post">
         <select name="noteFilter" id="noteFilter">
-          <option value="">Crescente</option>
-          <option value="">Decrescente</option>
+          {{#if asc}}
+            <option value="asc" selected>Crescente</option>
+          {{else}}
+            <option value="asc">Crescente</option>
+          {{/if}}
+          {{#if desc}}
+            <option value="desc" selected>Decrescente</option>
+          {{else}}
+            <option value="desc">Decrescente</option>
+          {{/if}}
         </select>
         <button type="submit"><i
             class="fa-solid fa-magnifying-glass"
@@ -24,7 +32,9 @@
                 </div>
                 <div class="col-9">
                   <h3><a href="/note?noteId={{_id}}">{{title_note}}</a>
-                    <span><a href="/tag?tag={{tag_note}}&order=asc">{{tag_note}}</a></span></h3>
+                    <span><a
+                        href="/tag?tag={{tag_note}}&order=asc"
+                      >{{tag_note}}</a></span></h3>
                   <h4>{{content_note}}</h4>
                 </div>
                 <div class="col-2">

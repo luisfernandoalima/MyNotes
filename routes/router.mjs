@@ -78,8 +78,21 @@ router.post("/login", (req, res, next) => {
 });
 
 router.get("/", isLogged, (req, res) => {
+  let asc = false;
+  let desc = false;
+  let sortOrder;
+  if (req.query.order == "asc") {
+    asc = true;
+    sortOrder = { creationDate_note: 1 };
+  } else if (req.query.order == "desc") {
+    desc = true;
+    sortOrder = { creationDate_note: -1 };
+  } else {
+    sortOrder = {};
+  }
+
   Note.find({ creator_note: req.user.id, status_note: "Open" })
-    .sort({ creationDate_note: "desc" })
+    .sort(sortOrder)
     .then((nota) => {
       res.render("index", {
         titulo: "MyNotes - Página Inicial",
@@ -88,28 +101,18 @@ router.get("/", isLogged, (req, res) => {
         alert: req.query.alert || null,
         congrats: req.query.congrats || null,
         notes: nota,
-        noteFilter: req.body.noteFilter || "desc",
+        asc: asc || null,
+        desc: desc || null,
       });
     });
 });
 
 router.post("/", (req, res) => {
-  Note.find({ creator_note: req.user.id, status_note: "Open" })
-    .sort({ creationDate_note: req.body.noteFilter })
-    .then((nota) => {
-      res.render("index", {
-        titulo: "MyNotes - Página Inicial",
-        css: "paginaInicial.css",
-        js: "paginaInicial.mjs",
-        alert: req.query.alert || null,
-        congrats: req.query.congrats || null,
-        notes: nota,
-        noteFilter: req.body.noteFilter || "asc",
-      });
-    })
-    .catch((err) => {
-      res.redirect("/");
-    });
+  if (req.body.noteFilter == "asc") {
+    res.redirect(`/?order=asc`);
+  } else if (req.body.noteFilter == "desc") {
+    res.redirect(`/?order=desc`);
+  }
 });
 
 router.get("/new-note", isLogged, (req, res) => {
@@ -178,8 +181,21 @@ router.get("/cancel-note/:id", isLogged, (req, res) => {
 });
 
 router.get("/completed-notes", isLogged, (req, res) => {
-  Note.find({ creator_note: req.user.id, status_note: "Completed" }).then(
-    (note) => {
+  let asc = false;
+  let desc = false;
+  let sortOrder;
+  if (req.query.order == "asc") {
+    asc = true;
+    sortOrder = { creationDate_note: 1 };
+  } else if (req.query.order == "desc") {
+    desc = true;
+    sortOrder = { creationDate_note: -1 };
+  } else {
+    sortOrder = {};
+  }
+  Note.find({ creator_note: req.user.id, status_note: "Completed" })
+    .sort(sortOrder)
+    .then((note) => {
       res.render("completedNotes", {
         titulo: "MyNotes - Notas Concluídas",
         css: "completedNotes.css",
@@ -187,14 +203,37 @@ router.get("/completed-notes", isLogged, (req, res) => {
         alert: req.query.alert || null,
         congrats: req.query.congrats || null,
         notes: note,
+        asc: asc || null,
+        desc: desc || null,
       });
-    }
-  );
+    });
+});
+
+router.post("/order-completed", (req, res) => {
+  if (req.body.noteFilter === "asc") {
+    res.redirect("/completed-notes?order=asc");
+  } else if (req.body.noteFilter === "desc") {
+    res.redirect("/completed-notes?order=desc");
+  }
 });
 
 router.get("/canceled-notes", isLogged, (req, res) => {
-  Note.find({ creator_note: req.user.id, status_note: "Canceled" }).then(
-    (note) => {
+  let asc = false;
+  let desc = false;
+  let sortOrder;
+  if (req.query.order == "asc") {
+    asc = true;
+    sortOrder = { creationDate_note: 1 };
+  } else if (req.query.order == "desc") {
+    desc = true;
+    sortOrder = { creationDate_note: -1 };
+  } else {
+    sortOrder = {};
+  }
+
+  Note.find({ creator_note: req.user.id, status_note: "Canceled" })
+    .sort(sortOrder)
+    .then((note) => {
       res.render("canceledNotes", {
         titulo: "MyNotes - Notas Canceladas",
         css: "canceledNotes.css",
@@ -202,9 +241,18 @@ router.get("/canceled-notes", isLogged, (req, res) => {
         alert: req.query.alert || null,
         congrats: req.query.congrats || null,
         notes: note,
+        asc: asc || null,
+        desc: desc || null,
       });
-    }
-  );
+    });
+});
+
+router.post("/order-canceled", (req, res) => {
+  if (req.body.noteFilter === "asc") {
+    res.redirect("/canceled-notes?order=asc");
+  } else if (req.body.noteFilter === "desc") {
+    res.redirect("/canceled-notes?order=desc");
+  }
 });
 
 router.get("/remove-note/:page/:id", (req, res) => {
@@ -305,13 +353,10 @@ router.get("/tag", isLogged, (req, res) => {
 });
 
 router.post("/order-tag", (req, res) => {
-  let sortOrder;
   if (req.body.noteFilter == "asc") {
-    res.redirect(`/tag?tag=${req.body.tagInput}&order=asc`)
+    res.redirect(`/tag?tag=${req.body.tagInput}&order=asc`);
   } else if (req.body.noteFilter == "desc") {
-    res.redirect(`/tag?tag=${req.body.tagInput}&order=desc`)
-  } else {
-    sortOrder = {};
+    res.redirect(`/tag?tag=${req.body.tagInput}&order=desc`);
   }
 });
 

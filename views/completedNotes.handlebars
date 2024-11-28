@@ -2,10 +2,18 @@
   <div class="container">
     <h2>Notas Concluídas</h2>
     <div class="form-area">
-      <form action="/" method="get">
-        <select name="noteFilter" id="noteFilter">
-          <option value="">Crescente</option>
-          <option value="">Decrescente</option>
+      <form action="/order-completed" method="post">
+         <select name="noteFilter" id="noteFilter">
+          {{#if asc}}
+            <option value="asc" selected>Crescente</option>
+          {{else}}
+            <option value="asc">Crescente</option>
+          {{/if}}
+          {{#if desc}}
+            <option value="desc" selected>Decrescente</option>
+          {{else}}
+            <option value="desc">Decrescente</option>
+          {{/if}}
         </select>
         <button type="submit"><i
             class="fa-solid fa-magnifying-glass"
