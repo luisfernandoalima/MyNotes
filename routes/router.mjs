@@ -250,8 +250,8 @@ router.get("/note", isLogged, (req, res) => {
             open = false;
           }
 
-          const creationDate = dateFormat(note.creationDate_note)
-          const finishDate = dateFormat(note.finishDate_note)
+          const creationDate = dateFormat(note.creationDate_note);
+          const finishDate = dateFormat(note.finishDate_note);
           res.render("note", {
             titulo: note.title_note,
             css: "note.css",
@@ -272,20 +272,47 @@ router.get("/note", isLogged, (req, res) => {
 });
 
 router.get("/tag", isLogged, (req, res) => {
+  let asc = false;
+  let desc = false;
+  let sortOrder;
+  if (req.query.order == "asc") {
+    asc = true;
+    sortOrder = { creationDate_note: 1 };
+  } else if (req.query.order == "desc") {
+    desc = true;
+    sortOrder = { creationDate_note: -1 };
+  } else {
+    sortOrder = {};
+  }
+
   Note.find({ tag_note: req.query.tag })
+    .sort(sortOrder)
     .then((note) => {
       res.render("tag", {
-        titulo: note.title_note,
+        titulo: req.query.tag,
         css: "tag.css",
         js: "tag.mjs",
         alert: req.query.alert || null,
         congrats: req.query.congrats || null,
         notes: note,
+        asc: asc || null,
+        desc: desc || null,
       });
     })
     .catch((err) => {
       res.redirect("/?alert=Erro ao buscar a tag");
     });
+});
+
+router.post("/order-tag", (req, res) => {
+  let sortOrder;
+  if (req.body.noteFilter == "asc") {
+    res.redirect(`/tag?tag=${req.body.tagInput}&order=asc`)
+  } else if (req.body.noteFilter == "desc") {
+    res.redirect(`/tag?tag=${req.body.tagInput}&order=desc`)
+  } else {
+    sortOrder = {};
+  }
 });
 
 router.get("/profile", isLogged, (req, res) => {

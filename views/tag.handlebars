@@ -1,6 +1,6 @@
 <main class="mt-4 mb-4">
   <div class="container">
-    <h2>Notas Abertas</h2>
+    <h2>Buscando pela tag: "{{titulo}}"</h2>
     <div class="form-area">
       <a href="/new-note">
         <button>
@@ -8,10 +8,19 @@
           <i class="fa-solid fa-pencil"></i>
         </button>
       </a>
-      <form action="/" method="get">
+      <form action="/order-tag" method="post">
+      <input type="hidden" name="tagInput" value="{{titulo}}">
         <select name="noteFilter" id="noteFilter">
-          <option value="">Crescente</option>
-          <option value="">Decrescente</option>
+          {{#if asc}}
+            <option value="asc" selected>Crescente</option>
+          {{else}}
+            <option value="asc">Crescente</option>
+          {{/if}}
+          {{#if desc}}
+            <option value="desc" selected>Decrescente</option>
+          {{else}}
+            <option value="desc">Decrescente</option>
+          {{/if}}
         </select>
         <button type="submit"><i
             class="fa-solid fa-magnifying-glass"
@@ -29,16 +38,9 @@
                   <i class="fa-solid fa-book"></i>
                 </div>
                 <div class="col-9">
-                  <h3><a href="/note?noteId={{_id}}">{{title_note}}</a> <span class="{{status_note}}">{{status_note}}</span></h3>
+                  <h3><a href="/note?noteId={{_id}}">{{title_note}}</a>
+                    <span class="{{status_note}}">{{status_note}}</span></h3>
                   <h4>{{content_note}}</h4>
-                </div>
-                <div class="col-3 col-md-2">
-                  <a href="/complete-note/{{_id}}" class="complete-note"><i
-                      class="fa-solid fa-check"
-                    ></i></a>
-                  <a href="/cancel-note/{{_id}}" class="cancel-note"><i
-                      class="fa-solid fa-ban"
-                    ></i></a>
                 </div>
               </div>
             </div>
