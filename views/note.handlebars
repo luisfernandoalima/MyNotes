@@ -1,12 +1,26 @@
-<main class="mt-4  mb-4">
+<main class="mt-4 mb-4">
   <div class="container">
     <div class="note-div">
       <div class="note-header">
         <div class="note-title">
           <h2>{{notes.title_note}}</h2>
-          <h3><a href="/tag?tag={{notes.tag_note}}&order=asc">{{notes.tag_note}}</a></h3>
+          <h3><a
+              href="/tag?tag={{notes.tag_note}}&order=asc"
+            >{{notes.tag_note}}</a></h3>
         </div>
         <div class="button-div">
+          {{#if logged}}
+            <div class="share-div">
+              <a href="/change-note?noteId={{notes._id}}" class="publicButton">
+              {{#if notes.public_note}}
+                Público
+              {{else}}
+                Privado
+              {{/if}}
+              </a>
+              <button class="copyLink"><i class="fa-solid fa-link"></i></button>
+            </div>
+          {{/if}}
           {{#if open}}
             <a href="/complete-note/{{notes._id}}" class="complete-note"><i
                 class="fa-solid fa-check"
@@ -15,6 +29,7 @@
                 class="fa-solid fa-ban"
               ></i></a>
           {{/if}}
+          
         </div>
       </div>
       <div class="note-dates">

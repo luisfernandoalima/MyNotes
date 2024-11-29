@@ -11,21 +11,22 @@
   .note-header {
     @include flex(center, space-between, row);
 
-    .note-title{
-        @include flex(center, center, row);
-        gap: 10px;
-        h2, h3 a{
-            font-family: 'Roboto';
-            color: $firstGreen
-        }
+    .note-title {
+      @include flex(center, center, row);
+      gap: 10px;
+      h2,
+      h3 a {
+        font-family: "Roboto";
+        color: $firstGreen;
+      }
 
-        h2{
-            font-size: 40px
-        }
+      h2 {
+        font-size: 40px;
+      }
 
-        h3{
-            font-size: 20px
-        }
+      h3 {
+        font-size: 20px;
+      }
     }
 
     .button-div {
@@ -56,19 +57,42 @@
           background-color: darken(#a80000, 10%);
         }
       }
+
+      .share-div {
+        @include flex(center, center, row);
+
+        a,
+        button {
+          background-color: $white;
+          border: 2px solid $darkBlue;
+          height: 30px;
+          border-radius: 0px;
+        }
+        a {
+          @include flex(center, center ,row);
+          color: black;
+          width: 80px;
+          border-top-left-radius: 20px;
+          border-bottom-left-radius: 20px;
+        }
+        button {
+          border-top-right-radius: 20px;
+          border-bottom-right-radius: 20px;
+        }
+      }
     }
   }
 
-  .note-dates{
+  .note-dates {
     @include flex(start, center, column);
   }
-  hr{
+  hr {
     border: 1px solid $firstGreen;
     opacity: 100;
   }
-  .note-content{
-    p{
-        font-size: 22px;
+  .note-content {
+    p {
+      font-size: 22px;
     }
   }
 }

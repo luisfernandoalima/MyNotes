@@ -278,43 +278,117 @@ router.get("/remove-note/:page/:id", (req, res) => {
   });
 });
 
-router.get("/note", isLogged, (req, res) => {
+router.get("/note", (req, res) => {
   if (
     req.query.noteId == "" ||
     req.query.noteId === null ||
     req.query.noteId === undefined
   ) {
-    res.redirect("/?alert=Erro em achar a nota");
+    res.redirect("/?alert=Nota não encontrada");
   } else {
     Note.findOne({ _id: req.query.noteId })
       .then((note) => {
-        if (note.creator_note != req.user.id) {
-          res.redirect("/?alert=Erro em achar a nota");
-        } else {
-          let open;
-          if (note.status_note == "Open") {
-            open = true;
+        if (!note.public_note) {
+          if (note.creator_note != req.user.id) {
+            res.redirect("/?alert=Erro em achar a nota");
           } else {
-            open = false;
-          }
+            let open;
+            if (note.status_note == "Open") {
+              open = true;
+            } else {
+              open = false;
+            }
 
-          const creationDate = dateFormat(note.creationDate_note);
-          const finishDate = dateFormat(note.finishDate_note);
-          res.render("note", {
-            titulo: note.title_note,
-            css: "note.css",
-            js: "note.mjs",
-            alert: req.query.alert || null,
-            congrats: req.query.congrats || null,
-            open: open,
-            notes: note,
-            creationDate: creationDate,
-            finishDate: finishDate,
-          });
+            const creationDate = dateFormat(note.creationDate_note);
+            const finishDate = dateFormat(note.finishDate_note);
+            res.render("note", {
+              titulo: note.title_note,
+              css: "note.css",
+              js: "note.mjs",
+              alert: req.query.alert || null,
+              congrats: req.query.congrats || null,
+              open: open,
+              logged: true,
+              notes: note,
+              creationDate: creationDate,
+              finishDate: finishDate,
+            });
+          }
+        } else if (note.public_note) {
+          if (req.user) {
+            if (req.user.id != note.creator_note) {
+              let open;
+              if (note.status_note == "Open") {
+                open = true;
+              } else {
+                open = false;
+              }
+
+              const creationDate = dateFormat(note.creationDate_note);
+              const finishDate = dateFormat(note.finishDate_note);
+              res.render("note", {
+                titulo: note.title_note,
+                css: "notePublic.css",
+                js: "note.mjs",
+                alert: req.query.alert || null,
+                congrats: req.query.congrats || null,
+                open: false,
+                notes: note,
+                creationDate: creationDate,
+                finishDate: finishDate,
+              });
+            } else {
+              let open;
+              if (note.status_note == "Open") {
+                open = true;
+              } else {
+                open = false;
+              }
+
+              const creationDate = dateFormat(note.creationDate_note);
+              const finishDate = dateFormat(note.finishDate_note);
+              res.render("note", {
+                titulo: note.title_note,
+                css: "note.css",
+                js: "note.mjs",
+                alert: req.query.alert || null,
+                congrats: req.query.congrats || null,
+                open: open,
+                logged: true,
+                notes: note,
+                creationDate: creationDate,
+                finishDate: finishDate,
+              });
+            }
+          } else {
+            let open;
+            if (note.status_note == "Open") {
+              open = true;
+            } else {
+              open = false;
+            }
+
+            const creationDate = dateFormat(note.creationDate_note);
+            const finishDate = dateFormat(note.finishDate_note);
+            res.render("note", {
+              titulo: note.title_note,
+              css: "notePublic.css",
+              js: "note.mjs",
+              alert: req.query.alert || null,
+              congrats: req.query.congrats || null,
+              open: false,
+              notes: note,
+              creationDate: creationDate,
+              finishDate: finishDate,
+            });
+          }
+        } else {
+          res.redirect("/?alert=Erro em achar a nota");
         }
       })
       .catch((err) => {
         res.redirect("/login?alert=Erro ao acessar o link!");
+        console.log(err);
       });
   }
 });
