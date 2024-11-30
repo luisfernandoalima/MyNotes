@@ -329,7 +329,7 @@ router.get("/note", (req, res) => {
               res.render("note", {
                 titulo: note.title_note,
                 css: "notePublic.css",
-                js: "note.mjs",
+                js: "publicNote.mjs",
                 alert: req.query.alert || null,
                 congrats: req.query.congrats || null,
                 open: false,
@@ -373,7 +373,7 @@ router.get("/note", (req, res) => {
             res.render("note", {
               titulo: note.title_note,
               css: "notePublic.css",
-              js: "note.mjs",
+              js: "publicNote.mjs",
               alert: req.query.alert || null,
               congrats: req.query.congrats || null,
               open: false,
@@ -391,6 +391,21 @@ router.get("/note", (req, res) => {
         console.log(err);
       });
   }
+});
+
+router.get("/change-note", (req, res) => {
+  Note.findOne({ _id: req.query.noteId })
+    .then((note) => {
+      if(note.public_note){
+        note.public_note = false
+      } else{
+        note.public_note = true
+      }
+      note.save().then(()=>{
+        res.redirect(`/note?noteId=${note._id}`)
+      })
+    })
+    .catch((err) => {});
 });
 
 router.get("/tag", isLogged, (req, res) => {
