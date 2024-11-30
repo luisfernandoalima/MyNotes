@@ -11,6 +11,9 @@
       <li><a href="/new-note">Nova Nota</a></li>
       <li><a href="/completed-notes">Concluídas</a></li>
       <li><a href="/canceled-notes">Canceladas</a></li>
+      {{#if admin}}
+      <li><a href="/admin/">Admin</a></li>
+      {{/if}}
       <li><a href="/profile">
           <img src="img/users/{{user.image_user}}" alt="Imagem de perfil" />
         </a></li>

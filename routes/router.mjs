@@ -103,6 +103,7 @@ router.get("/", isLogged, (req, res) => {
         notes: nota,
         asc: asc || null,
         desc: desc || null,
+        admin: req.user.admin
       });
     });
 });
@@ -121,6 +122,7 @@ router.get("/new-note", isLogged, (req, res) => {
     css: "newNote.css",
     js: "newNote.mjs",
     alert: req.query.alert || null,
+    admin: req.user.admin
   });
 });
 
@@ -205,6 +207,7 @@ router.get("/completed-notes", isLogged, (req, res) => {
         notes: note,
         asc: asc || null,
         desc: desc || null,
+        admin: req.user.admin
       });
     });
 });
@@ -243,6 +246,7 @@ router.get("/canceled-notes", isLogged, (req, res) => {
         notes: note,
         asc: asc || null,
         desc: desc || null,
+        admin: req.user.admin
       });
     });
 });
@@ -312,6 +316,7 @@ router.get("/note", (req, res) => {
               notes: note,
               creationDate: creationDate,
               finishDate: finishDate,
+              admin: req.user.admin
             });
           }
         } else if (note.public_note) {
@@ -358,6 +363,7 @@ router.get("/note", (req, res) => {
                 notes: note,
                 creationDate: creationDate,
                 finishDate: finishDate,
+                admin: req.user.admin
               });
             }
           } else {
@@ -434,6 +440,7 @@ router.get("/tag", isLogged, (req, res) => {
         notes: note,
         asc: asc || null,
         desc: desc || null,
+        admin: req.user.admin
       });
     })
     .catch((err) => {
