@@ -1,3 +1,40 @@
-@import 'variables.scss';
-@import 'models/header.scss';
-@import 'models/footer.scss';
+@import "variables.scss";
+@import "models/header.scss";
+@import "models/footer.scss";
+
+h2 {
+  color: $darkGreen;
+  text-align: center;
+}
+
+.info-div {
+  @include flex(center, space-around, column);
+  gap: 30px;
+  background-color: $white;
+  padding: 30px 10px;
+  margin: auto;
+  width: 75%;
+  height: min-content;
+  border-radius: 20px;
+  border: 3px solid $firstGreen;
+
+  a {
+    display: block;
+    width: 75%;
+    text-decoration: none;
+
+    button {
+      @include flex(center, center, row);
+      background-color: $lightGreen2;
+      padding: 30px;
+      width: 100%;
+      border: 3px solid $firstGreen;
+      border-radius: 30px;
+      transition: 0.3s;
+
+      &:hover {
+        background-color: darken($lightGreen2, 10%);
+      }
+    }
+  }
+}
