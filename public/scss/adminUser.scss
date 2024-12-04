@@ -1,0 +1,44 @@
+@import "variables.scss";
+@import "models/header.scss";
+@import "models/footer.scss";
+
+h2 {
+  color: $darkGreen;
+  text-align: center;
+}
+
+.table-div{
+    background-color: $white;
+    padding: 15px;
+    border-radius: 20px;
+}
+
+table,
+td,
+th {
+  border: 1px solid #000;
+  border-collapse: collapse;
+}
+
+table {
+  width: 100%;
+  margin: auto;
+
+  thead {
+    th {
+      position: sticky;
+      top: -1px;
+      color: $white;
+      background-color: $firstGreen;
+    }
+  }
+
+  tr:nth-child(even){
+    background-color: $lightGreen1;
+  }
+
+  th,
+  td {
+    text-align: center;
+  }
+}

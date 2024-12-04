@@ -1,5 +1,26 @@
 <main class="mt-4 mb-4">
-    <div class="container">
-        <h2>Usuários</h2>
+  <div class="container">
+    <h2>Usuários</h2>
+    <div class="table-div mt-4">
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each users}}
+            <tr>
+              <td>{{name_user}}</td>
+              <td>{{email_user}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      <div class="pagination-div">
+        
+      </div>
     </div>
+  </div>
 </main>

@@ -15,7 +15,9 @@ router.get("/", isAdmin, (req, res) => {
 });
 
 router.get("/users/:page", isAdmin, (req, res) => {
-  User.find().skip(req.params.page).then((user) => {
+  let page = (req.params.page - 1) *10
+
+  User.find().skip(page).then((user) => {
     res.render("admin/users", {
       titulo: "MyNotes - Controle de Usuários",
       css: "adminUser.css",
