@@ -18,8 +18,10 @@
           {{/each}}
         </tbody>
       </table>
-      <div class="pagination-div">
-        
+      <div class="pagination-div mt-3">
+        {{#each totalPages}}
+          <a href="/admin/users/{{this}}">{{this}}</a>
+        {{/each}}
       </div>
     </div>
   </div>

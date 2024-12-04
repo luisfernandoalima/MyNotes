@@ -15,17 +15,30 @@ router.get("/", isAdmin, (req, res) => {
 });
 
 router.get("/users/:page", isAdmin, (req, res) => {
-  let page = (req.params.page - 1) *10
+  let limit = 10;
+  let page = (req.params.page - 1) * limit;
 
-  User.find().skip(page).then((user) => {
-    res.render("admin/users", {
-      titulo: "MyNotes - Controle de Usuários",
-      css: "adminUser.css",
-      js: "adminUser.mjs",
-      admin: req.user.admin,
-      users: user,
+  User.find()
+    .skip(page)
+    .limit(limit)
+    .then((user) => {
+      User.countDocuments().then((count) => {
+        let pagesArray = [];
+        let totalPage = Math.ceil(count / limit);
+
+        for (let c = 1; c <= totalPage; c++) {
+          pagesArray.push(c);
+        }
+        res.render("admin/users", {
+          titulo: "MyNotes - Controle de Usuários",
+          css: "adminUser.css",
+          js: "adminUser.mjs",
+          admin: req.user.admin,
+          users: user,
+          totalPages: pagesArray,
+        });
+      });
     });
-  });
 });
 
 export { router as routerAdmin };

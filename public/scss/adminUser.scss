@@ -42,3 +42,22 @@ table {
     text-align: center;
   }
 }
+
+.pagination-div{
+  @include flex(center, center, row);
+  gap: 10px;
+
+  a{
+    @include flex(center, center, row);
+    width: 25px;
+    height: 25px;
+    background-color: #b3b3b3;
+    color: #000;
+    text-decoration: none;
+    transition: .3s;
+
+    &:hover{
+      background-color: darken(#b3b3b3, 10%);
+    }
+  }
+}
