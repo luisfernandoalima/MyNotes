@@ -1,6 +1,6 @@
 {
   "name": "mynotes",
-  "version": "3.0.0",
+  "version": "1.0.0",
   "description": "Sistema de anotações e lembretes",
   "main": "app.mjs",
   "scripts": {

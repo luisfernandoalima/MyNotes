@@ -41,4 +41,27 @@ router.get("/users/:page", isAdmin, (req, res) => {
     });
 });
 
+
+router.get("/notes", isAdmin, async (req, res) => {
+  try{
+    let openNotes = await Note.find({status_note: "Open"}).countDocuments()
+    let completedNotes = await Note.find({status_note: "Completed"}).countDocuments()
+    let canceledNotes = await Note.find({status_note: "Canceled"}).countDocuments()
+    let removedNotes = await Note.find({status_note: "Deleted"}).countDocuments()
+
+    res.render('admin/notes', {
+      titulo: "MyNotes - Número de Notas",
+      css: 'adminNotes.css',
+      js: "adminNotes.mjs",
+      admin: req.user.admin,
+      openNotes: openNotes,
+      completedNotes: completedNotes,
+      canceledNotes: canceledNotes,
+      removedNotes: removedNotes
+    })
+  }
+  catch{
+
+  }
+})
 export { router as routerAdmin };

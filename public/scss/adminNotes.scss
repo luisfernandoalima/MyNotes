@@ -1,0 +1,38 @@
+@import "variables.scss";
+@import "models/header.scss";
+@import "models/footer.scss";
+
+h2 {
+  font-family: "Roboto", sans-serif;
+  text-align: center;
+  color: $darkGreen;
+}
+
+
+.card-div{
+    @include flex(center, center, row);
+    padding: 0px 15px;
+    background-color: $white;
+    border-radius: 20px;
+    border: 3px solid $firstGreen;
+    .row>div{
+        margin: 15px 0px 15px 0px;
+    }
+    .card{
+        @include flex(center, center, column);
+        background-color: $darkBlue;
+        color: $lightGreen2;
+        border-radius: 30px;
+        padding: 15px 0px;
+
+        z-index: 0;
+    }
+}
+
+@media (max-width: 768px){
+    .card-div{
+        .card{
+
+        }
+    }
+}
